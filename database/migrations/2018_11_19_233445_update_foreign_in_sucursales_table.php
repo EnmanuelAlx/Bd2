@@ -14,7 +14,7 @@ class UpdateForeignInSucursalesTable extends Migration
     public function up()
     {
         Schema::table('sucursales', function (Blueprint $table) {
-            //
+            $table->foreign('idEmpresa')->references('id')->on('empresas')->onDelete('cascade');
         });
     }
 
