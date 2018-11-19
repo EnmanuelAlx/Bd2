@@ -15,13 +15,13 @@ class CreateAdicionalesProductosSurcursalesTable extends Migration
     {
         Schema::create('adicionales_productos_surcursales', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('idProducto');
-            $table->unsignedInteger('idAdicional');
-            $table->unsignedInteger('idSucursal');
+            $table->unsignedInteger('id_producto');
+            $table->unsignedInteger('id_adicional');
+            $table->unsignedInteger('id_sucursal');
             $table->timestamps();
-            $table->foreign('idProducto')->references('id')->on('productos')->onDelete('cascade');
-            $table->foreign('idAdicional')->references('id')->on('adicionales')->onDelete('cascade');
-            $table->foreign('idSucursal')->references('id')->on('sucursales')->onDelete('cascade');
+            $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
+            $table->foreign('id_adicional')->references('id')->on('adicionales')->onDelete('cascade');
+            $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('cascade');
         });
     }
 

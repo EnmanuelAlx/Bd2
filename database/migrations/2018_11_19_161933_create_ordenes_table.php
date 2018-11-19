@@ -15,12 +15,12 @@ class CreateOrdenesTable extends Migration
     {
         Schema::create('ordenes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status');
+            $table->integer('status');
             $table->date('fechaEnvio');
             $table->date('fechaEntrega');
-            $table->unsignedInteger('idUser');
+            $table->unsignedInteger('id_usuario');
             $table->timestamps();
-            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

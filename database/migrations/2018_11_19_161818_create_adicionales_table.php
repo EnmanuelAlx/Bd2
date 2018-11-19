@@ -15,6 +15,7 @@ class CreateAdicionalesTable extends Migration
     {
         Schema::create('adicionales', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
