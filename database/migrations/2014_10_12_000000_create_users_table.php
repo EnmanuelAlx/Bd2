@@ -16,10 +16,12 @@ class CreateUsersTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('nombre');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('telefono');
+            $table->string('direccion');
             $table->rememberToken();
             $table->timestamps();
             $table->index([DB::raw('email(191)')]);

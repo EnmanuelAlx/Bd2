@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdicionalProductoSurcursalsTable extends Migration
+class CreateSucursalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateAdicionalProductoSurcursalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('adicional_producto_surcursals', function (Blueprint $table) {
+        Schema::create('sucursales', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('idEmpresa');
+            $table->string('direccion');
+            $table->string('telefono');
             $table->timestamps();
+            $table->foreign('idEmpresa')->references('id')->on('empresas')->onDelete('cascade');
         });
     }
 
@@ -26,6 +30,6 @@ class CreateAdicionalProductoSurcursalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adicional_producto_surcursals');
+        Schema::dropIfExists('sucursals');
     }
 }

@@ -15,7 +15,9 @@ class CreateCarritosTable extends Migration
     {
         Schema::create('carritos', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('idUser')->unique();
             $table->timestamps();
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
