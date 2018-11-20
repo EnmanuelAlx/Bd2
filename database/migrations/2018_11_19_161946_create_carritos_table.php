@@ -17,6 +17,7 @@ class CreateCarritosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_usuario')->unique();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
         });
     }

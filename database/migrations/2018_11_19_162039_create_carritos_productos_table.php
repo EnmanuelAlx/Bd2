@@ -18,6 +18,7 @@ class CreateCarritosProductosTable extends Migration
             $table->unsignedInteger('id_carrito');
             $table->unsignedInteger('id_producto');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_carrito')->references('id')->on('carritos')->onDelete('cascade');
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
         });

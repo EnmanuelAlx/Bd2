@@ -19,6 +19,7 @@ class CreateProductosSucursalesTable extends Migration
             $table->unsignedInteger('id_sucursal');
             $table->integer('cantidad');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('cascade');
         });

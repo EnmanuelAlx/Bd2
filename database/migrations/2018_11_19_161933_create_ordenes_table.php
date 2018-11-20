@@ -20,6 +20,7 @@ class CreateOrdenesTable extends Migration
             $table->date('fechaEntrega');
             $table->unsignedInteger('id_usuario');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
         });
     }

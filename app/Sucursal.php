@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sucursal extends Model
 {
@@ -15,4 +16,6 @@ class Sucursal extends Model
     public function adicionales(){
         return $this->belongsToMany(Adicional::class, 'adicionales_productos_sucursales', 'id_sucursal', 'id_adicional');
     }
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 }

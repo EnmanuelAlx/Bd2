@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('direccion');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
             $table->index([DB::raw('email(191)')]);
         });
     }

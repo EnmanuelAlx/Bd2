@@ -19,6 +19,7 @@ class CreateAdicionalesProductosSurcursalesTable extends Migration
             $table->unsignedInteger('id_adicional');
             $table->unsignedInteger('id_sucursal');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('id_adicional')->references('id')->on('adicionales')->onDelete('cascade');
             $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('cascade');

@@ -19,6 +19,7 @@ class CreateOrdenesProductosTable extends Migration
             $table->unsignedInteger('id_producto');
             $table->string('cantidad');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id_orden')->references('id')->on('ordenes')->onDelete('cascade');
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
         });

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Orden extends Model
 {
@@ -14,4 +15,6 @@ class Orden extends Model
     public function productos(){
         return $this->belongsToMany(Producto::class, 'orden_productos', 'id_orden', 'id_producto');
     }
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 }
