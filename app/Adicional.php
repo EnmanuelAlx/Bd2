@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Adicional extends Model
 {
+    protected $table = 'adicionales';
     public function sucursales(){
         return $this->belongsToMany(Sucursal::class, 'adicionales_productos_sucursales', 'id_adicional', 'id_sucursal');
     }

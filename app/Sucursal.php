@@ -16,6 +16,11 @@ class Sucursal extends Model
     public function adicionales(){
         return $this->belongsToMany(Adicional::class, 'adicionales_productos_sucursales', 'id_sucursal', 'id_adicional');
     }
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'productos_sucursales', 'id_sucursal', 'id_producto');
+    }
+    
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 }

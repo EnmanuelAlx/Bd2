@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdicionalesProductosSurcursalesTable extends Migration
+class CreateAdicionalesProductosSucursales extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateAdicionalesProductosSurcursalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('adicionales_productos_surcursales', function (Blueprint $table) {
+        Schema::create('adicionales_productos_sucursales', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_producto');
+            $table->unsignedInteger('id_producto_sucursal');
             $table->unsignedInteger('id_adicional');
-            $table->unsignedInteger('id_sucursal');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
+            $table->foreign('id_producto_sucursal')->references('id')->on('productos_sucursales')->onDelete('cascade');
             $table->foreign('id_adicional')->references('id')->on('adicionales')->onDelete('cascade');
-            $table->foreign('id_sucursal')->references('id')->on('sucursales')->onDelete('cascade');
+            
         });
     }
 
@@ -33,6 +32,6 @@ class CreateAdicionalesProductosSurcursalesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adicional_producto_surcursals');
+        Schema::dropIfExists('adicionales_productos_sucursales');
     }
 }

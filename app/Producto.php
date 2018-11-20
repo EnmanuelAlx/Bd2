@@ -13,4 +13,8 @@ class Producto extends Model
     public function ordenes(){
         return $this->belongsToMany(Orden::class, 'orden_producto', 'id_producto', 'id_orden');
     }
+
+    public function sucursales(){
+        return $this->belongsToMany(Sucursal::class, 'productos_sucursales', 'id_producto', 'id_sucursal');
+    }
 }
