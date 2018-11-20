@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carrito extends Model
 {
-    //
+    public function usuario(){
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
+
+    public function productos(){
+        return $this->belongsToMany(Producto::class, 'carrito_productos', 'id_carrito', 'id_producto');
+    }
 }

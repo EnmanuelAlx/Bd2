@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -27,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    public function carrito(){
+        return $this->hasMany(Carrito::class, 'id_usuario', 'id');
+    }
+
+    public function ordenes(){
+        return $this->belongsTo(Orden::class, 'id_orden', 'id');
+    }
 }
