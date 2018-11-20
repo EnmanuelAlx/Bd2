@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sucursal extends Model
 {
+    protected $table = 'sucursales';
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'empresa_id', 'id');
