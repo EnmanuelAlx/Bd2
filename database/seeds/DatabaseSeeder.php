@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Symfony\Component\Translation\PluralizationRules;
 
 class DatabaseSeeder extends Seeder
 {
