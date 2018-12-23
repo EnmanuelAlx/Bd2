@@ -16,8 +16,8 @@ class CreateOrdenesTable extends Migration
         Schema::create('ordenes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('status');
-            $table->date('fechaEnvio');
-            $table->date('fechaEntrega');
+            $table->date('fecha_envio');
+            $table->date('fecha_entrega');
             $table->unsignedInteger('id_usuario');
             $table->timestamps();
             $table->softDeletes();

@@ -17,6 +17,8 @@ class CreateProductosTable extends Migration
             $table->increments('id');
             $table->integer('precio');
             $table->string('descripcion');
+            $table->unsignedInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
