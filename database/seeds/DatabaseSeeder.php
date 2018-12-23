@@ -46,25 +46,20 @@ class DatabaseSeeder extends Seeder
             'Pescado'
         ];
 
-        $empresa = factory(App\Empresa::class)->create();
+        
         $users = factory(App\User::class, 20)->create();
         $productos = collect();
-        foreach($products as $p){
-            $productos->push(factory(App\Producto::class)->create([
-                'descripcion' => $p
-            ]));
-        }
-        $adicionales = collect();
-        foreach($aditions as $a){
-            $adicionales->push(factory(App\Adicional::class)->create([
-                'descripcion' => $a
-            ]));
-        }
 
-    
-        $ordenes = factory(App\Orden::class, 10)->create([
-            'id_usuario' => $users->random()->id
-        ]);
+        for ($i=0; $i < 4; $i++) {
+            $empresa = factory(App\Empresa::class)->create();
+            foreach ($products as $p) {
+                $productos->push(factory(App\Producto::class)->create([
+                    'descripcion' => $p,
+                    'empresa_id' => $empresa->id
+                ]));
+            }
+            $adicionales = collect();
+        }
         
         
 
