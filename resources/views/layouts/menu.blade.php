@@ -45,15 +45,15 @@
             
         </div>
     </nav>
-
+    <hr>
     <div class="container-fluid">
         <div class="row">
-            <div class="col" style="border-style:solid">
-
-            </div>
-            <div class="col-10">
-                @yield('content')
-            </div>
+            {{-- <div class="col active"> --}}
+            @yield('categorias')
+            {{-- </div> --}}
+            
+            @yield('content')
+            
         </div>
     </div>
 </div>

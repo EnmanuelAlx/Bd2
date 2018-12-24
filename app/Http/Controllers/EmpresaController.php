@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Empresa;
+use App\Producto;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -12,9 +13,11 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($empresa_id)
     {
-        //
+        $productos = Producto::where('id_empresa', '=', $empresa_id)->paginate(5);
+        $empresa = Empresa::find($empresa_id);
+        return view('Empresa.index', ['productos' => $productos, 'empresa'=>$empresa]);
     }
 
     /**

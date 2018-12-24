@@ -12,3 +12,9 @@
 */
 
 Route::get('/', "HomeController@index");
+
+Route::get('/withCategory/{categoria_id}', "HomeController@withCategory");
+
+Route::group(['prefix' => 'Empresa'], function () {
+    Route::get('/{empresa_id}', 'EmpresaController@index');
+});

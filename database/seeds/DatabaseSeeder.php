@@ -47,21 +47,17 @@ class DatabaseSeeder extends Seeder
         ];
 
         
-        $users = factory(App\User::class, 20)->create();
-        $productos = collect();
+        
+        $users = factory(App\User::class, 10)->create();
 
-        for ($i=0; $i < 4; $i++) {
-            $empresa = factory(App\Empresa::class)->create();
-            foreach ($products as $p) {
-                $productos->push(factory(App\Producto::class)->create([
-                    'descripcion' => $p,
-                    'empresa_id' => $empresa->id
-                ]));
-            }
-            $adicionales = collect();
+       
+        $categorias = factory(App\Categoria::class, 10)->create();
+
+        foreach ($categorias as $categoria) {
+            $empresa = factory(App\Empresa::class)->create([
+                'id_categoria' => $categoria->id
+            ]);
         }
-        
-        
 
     }
 }
