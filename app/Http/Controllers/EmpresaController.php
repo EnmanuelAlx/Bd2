@@ -5,14 +5,41 @@ namespace App\Http\Controllers;
 use App\Empresa;
 use App\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class EmpresaController extends Controller
 {
+    use AuthenticatesUsers;
+    protected $guard = 'empresa';
+    protected $redirectTo = '/';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('guest:empresa')->except('logout');
+        // $this->middleware('auth:empresa', ['only' => ['']]);
+        // $this->middleware('guest', ['only' => ['showLoginForm']]);
+
+    }
+
+    protected function guard()
+    {
+        return \Auth::guard('empresa');
+    }
+
+    public function showLoginForm(){
+        return view('auth.empresa.login');
+    }
+
+    public function authenticated(Request $request, $user){
+        return redirect('/');
+    }
+
+
     public function index($empresa_id)
     {
         $productos = Producto::where('id_empresa', '=', $empresa_id)->paginate(5);

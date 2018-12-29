@@ -24,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        // Auth::provider('empresa', function ($app, array $config) {
+        //     $model = $app['config']['auth.providers.users.model'];
+        //     return new MyEloquentUserProvider($app['hash'], $model);
+        // });
         //
     }
 }
