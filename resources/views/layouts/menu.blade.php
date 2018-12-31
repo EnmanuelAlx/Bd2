@@ -25,29 +25,28 @@
         
         <div class="col" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @auth
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                              Opciones
-                            </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class="btn btn-danger btn-xs">Cerrar Sesion</button>
-                        </form>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Carrito</a>
-                </li>
-                @endauth  
-                @auth('empresa')
+
+                
+                @if (empty(!Auth::guard('empresa')->user()))
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                                                 Opciones
-                                                </a>
+                                            </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('administrarEmpresa') }}" class="btn btn-xs">Administrar {{ Auth::guard('empresa')->user()->name }}</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-xs btn-block">Cerrar Sesion</button>
+                            </form>
+                        </div>
+                    </li>
+                @elseif(Auth::check())
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                                                                                                              Opciones
+                                                                                                            </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -56,14 +55,18 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Empresaaa!</a>
+                        <a class="nav-link" href="#">Carrito</a>
                     </li>
-                @endauth
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('login') }}">Entrar</span></a>
-                    </li>
-                @endguest
+                @endif
+        
+
+                @if(!Auth::check())
+                    @guest('empresa')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('login') }}">Entrar</span></a>
+                        </li>    
+                    @endguest
+                @endif
                         
             </ul>
             
@@ -76,7 +79,9 @@
             @yield('categorias')
             {{-- </div> --}}
             
-            @section('content')
+            <div class="container">
+                @section('content')
+            </div>
             
             @show
         </div>

@@ -14,7 +14,7 @@ class AddImagenToEmpresasTable extends Migration
     public function up()
     {
         Schema::table('empresas', function (Blueprint $table) {
-            $table->string('imagen', 100)->nullable()->default('text');
+            $table->string('imagen', 100)->nullable()->default('img_empresa/default.jpg');
         });
     }
 

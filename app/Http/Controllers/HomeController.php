@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        
         $empresas = Empresa::paginate(5);
         $categorias = Categoria::all();
         return view('Home.index', ['empresas' => $empresas, 'categorias' => $categorias]);

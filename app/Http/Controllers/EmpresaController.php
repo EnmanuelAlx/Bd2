@@ -6,11 +6,16 @@ use App\Empresa;
 use App\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 
 class EmpresaController extends Controller
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, RegistersUsers {
+        AuthenticatesUsers::redirectPath insteadof RegistersUsers;
+        AuthenticatesUsers::guard insteadof RegistersUsers;
+    }
     protected $guard = 'empresa';
     protected $redirectTo = '/';
     /**
@@ -20,15 +25,15 @@ class EmpresaController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:empresa')->except('logout');
-        // $this->middleware('auth:empresa', ['only' => ['']]);
+        // $this->middleware('guest');
+        $this->middleware('auth:empresa', ['only' => ['perfil']]);
         // $this->middleware('guest', ['only' => ['showLoginForm']]);
 
     }
 
     protected function guard()
     {
-        return \Auth::guard('empresa');
+        return Auth::guard('empresa');
     }
 
     public function showLoginForm(){
@@ -39,6 +44,29 @@ class EmpresaController extends Controller
         return redirect('/');
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:empresas',
+            'password' => 'required|string|min:3|confirmed',
+            'imagen' => 'image'
+        ]);
+    }
+
+    protected function create(array $data)
+    {
+        $request = new Request($data);
+        $imagen = null;
+        $empresa = Empresa::create($request->all());
+
+        if ($request->input('imagen')) {
+            $empresa->imagen = $request->input('imagen')->store('public/img_empresa');
+        }
+        $empresa->save();
+        return $empresa;
+
+    }
 
     public function index($empresa_id)
     {
@@ -47,16 +75,15 @@ class EmpresaController extends Controller
         return view('Empresa.index', ['productos' => $productos, 'empresa'=>$empresa]);
     }
 
+
+    public function perfil(){
+        return view('Empresa.perfil');
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *

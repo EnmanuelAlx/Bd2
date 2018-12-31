@@ -18,7 +18,7 @@ class CreateProductosTable extends Migration
             $table->integer('precio');
             $table->string('descripcion');
             $table->unsignedInteger('id_empresa');
-            $table->string('imagen', 100)->nullable()->default('');
+            $table->string('imagen', 100)->nullable()->default('img_producto/default.jpg');
             $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

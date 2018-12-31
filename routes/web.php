@@ -14,12 +14,16 @@
 Route::get('/', "HomeController@index")->name('/');
 
 Route::get('/withCategory/{categoria_id}', "HomeController@withCategory");
-Route::get('empresa/login', "EmpresaController@showLoginForm");
-Route::post('empresa/login', "EmpresaController@login")->name('loginEmpresa');
 
-Route::group(['prefix' => 'Empresa'], function () {
-    Route::get('/{empresa_id}', 'EmpresaController@index');
+
+Route::group(['prefix' => 'empresa'], function () {
+    Route::get('/login', "EmpresaController@showLoginForm");
+    Route::post('/login', "EmpresaController@login")->name('loginEmpresa');
+    Route::get('/perfil', 'EmpresaController@perfil')->name('administrarEmpresa');
+    Route::get('/{empresa_id}', 'EmpresaController@index')->name('productosEmpresa');
+    Route::post('/register', 'EmpresaController@register')->name('registerEmpresa');    
 });
+
 
 Auth::routes();
 

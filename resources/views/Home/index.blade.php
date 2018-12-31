@@ -12,17 +12,19 @@
 @endsection
 
 @section('content')
-    <div class="card col-10" id="panelEmpresas">
-        <div class="card-body">
-            <div class="row justify-content-md-center">
-                @include('Home.empresas', $empresas)
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="row justify-content-md-center">
-                {{ $empresas->links() }}
-            </div>
+
+<div class="card" id="panelEmpresas">
+    <div class="card-body">
+        <div class="row justify-content-md-center">
+    @include('Home.empresas', $empresas)
         </div>
     </div>
+    <div class="card-footer">
+        <div class="row justify-content-md-center">
+            {{ $empresas->links() }}
+        </div>
+    </div>
+</div>
 
 @endsection
+

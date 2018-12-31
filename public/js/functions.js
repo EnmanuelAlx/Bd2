@@ -6,7 +6,7 @@ function getInfo(id){
         dataType: 'JSON',
         success: function (data) {
             console.log('hey');
-            $('#panelEmpresas').empty().append($(data));
+            $('#panelEmpresas').html(data);
         },
         error: function (data) {
             var errors = data.responseJSON;

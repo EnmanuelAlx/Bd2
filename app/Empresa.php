@@ -10,14 +10,15 @@ class Empresa extends Authenticatable
 
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    
+    protected $fillable = [
+        'name', 'email', 'password', 'telefono', 'imagen'
+    ];
 
     
     public function categoria()
     {
         return $this->hasOne(Categoria::class, 'id');
     }
-
 
 
     

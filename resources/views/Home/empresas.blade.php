@@ -3,10 +3,10 @@
     <div class="col col-3">
         <div class="card text-center" style="width:15rem;">
             <div class="card-header">
-                {{ $empresa->nombre }}
+                {{ $empresa->name }}
             </div>
-            <a class="text-center" href="{{ url('Empresa', $empresa->id) }}">
-                <img class="card-img-top" src="https://picsum.photos/200/200" alt="{{ $empresa->nombre }}" height="150" width="150" style="border-radius: 10%">
+            <a class="text-center" href="{{ route('productosEmpresa', $empresa->id) }}">
+                <img class="card-img-top" src="{{ Storage::url($empresa->imagen) }}" alt="{{ $empresa->name }}" height="150" width="150" style="border-radius: 10%">
             </a>
             <div class="card-body">
                 <span>{{ $empresa->telefono }}</span>
