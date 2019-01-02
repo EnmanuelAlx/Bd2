@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('productos/{id_empresa}', function($id_empresa){
+    $productos = App\Producto::where('id_empresa', '=', $id_empresa);
+    return datatables()->eloquent($productos)->toJson();
+});
+
+Route::get('adicionales', function () {
+    return App\Adicional::all()->toJson();
 });

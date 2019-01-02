@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Symfony\Component\Translation\PluralizationRules;
 use Illuminate\Support\Collection;
+use App\AdicionalProducto;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -53,10 +55,27 @@ class DatabaseSeeder extends Seeder
        
         $categorias = factory(App\Categoria::class, 10)->create();
 
-        foreach ($categorias as $categoria) {
+        foreach ($categorias as $key => $categoria) {
             $empresa = factory(App\Empresa::class)->create([
                 'id_categoria' => $categoria->id
             ]);
+            if($key==0){
+                foreach($products as $producto){
+                    factory(App\Producto::class)->create([
+                        'descripcion' => $producto,
+                        'id_empresa' => $empresa->id,
+                    ]);
+                }
+                foreach($aditions as $adicional){
+                    $id = factory(App\Adicional::class)->create([
+                        'descripcion' => $adicional
+                    ]);
+                    AdicionalProducto::create([
+                        'id_producto' => 1,
+                        'id_adicional' => $id->id
+                    ]);
+                }
+            }
         }
 
     }

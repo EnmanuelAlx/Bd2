@@ -21,10 +21,12 @@ Route::group(['prefix' => 'empresa'], function () {
     Route::post('/login', "EmpresaController@login")->name('loginEmpresa');
     Route::get('/perfil', 'EmpresaController@perfil')->name('administrarEmpresa');
     Route::get('/{empresa_id}', 'EmpresaController@index')->name('productosEmpresa');
-    Route::post('/register', 'EmpresaController@register')->name('registerEmpresa');    
+    Route::post('/register', 'EmpresaController@register')->name('registerEmpresa');
 });
-
-
+Route::resource('productos', 'ProductoController')->middleware('auth:empresa');
+Route::post('/adicional/addnew', 'AdicionalController@store')->name('agregarAdicional');
+Route::get('/eliminarAdicional', 'ProductoController@eliminarAdicional')->name('deleteAdicional');
+Route::post('/addAdicionales', 'ProductoController@agregarAdicionales')->name('addAdicional');
 Auth::routes();
 
 

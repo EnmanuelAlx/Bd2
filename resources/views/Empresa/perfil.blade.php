@@ -2,14 +2,9 @@
 @section('categorias')
 <div class="col">
     <div class="list-group">
-        <a href="/" class="list-group-item list-group-item-action" ">Añadir Producto</a>
+        <a href="{{ url('productos') }}" class="list-group-item list-group-item-action" ">Añadir Producto</a>
         <a href="/" class="list-group-item list-group-item-action" ">Añadir Adicional</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Categoria de la Empresa</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Nombre de la empresa</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Imagen de la empresa</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Telefono de la empresa</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Correo de la empresa</a>
-        <a href="/" class="list-group-item list-group-item-action" ">Actualizar Contraseña de la empresa</a>
+        {{-- <a href="/" class="list-group-item list-group-item-action" ">Actualizar informacion</a>         --}}
     </div>
 </div>
 @endsection
@@ -28,7 +23,7 @@
                             Productos
                         </div>
                         <div class="card-body">
-                            <a href="#">
+                            <a href="{{ url('productos') }}">
                                 <img src="{{ asset('imagenes/productos.jpg') }}" height="163" width="200">
                             </a>
                         </div>

@@ -15,6 +15,10 @@ class Producto extends Model
         return $this->hasOne(Empresa::class, 'id');
     }
 
+    public function adicionales(){
+        return $this->belongsToMany(Adicional::class, 'adicionales_productos', 'id_producto', 'id_adicional');
+    }
+
     public function ordenes(){
         return $this->belongsToMany(Orden::class, 'orden_producto', 'id_producto', 'id_orden');
     }

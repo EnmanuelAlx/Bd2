@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Adicional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdicionalController extends Controller
 {
@@ -35,7 +37,20 @@ class AdicionalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'required|integer|',
+        ]);
+        if($validator->fails()){
+            return back();
+        }
+
+        Adicional::create([
+            'descripcion' => $request->input('descripcion'),
+            'precio' => $request->input('precio'),
+            'id_categoria' => Auth::guard('empresa')->user()->id_categoria
+        ]);
+        return back();
     }
 
     /**

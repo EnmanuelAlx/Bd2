@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\AdicionalProducto;
+use App\Adicional;
 
 class ProductoController extends Controller
 {
+
+
+    public function __construct()
+    {
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        $empresa = Auth::guard('empresa')->user()->id;
+        $productos = Producto::where('id_empresa', '=', $empresa); 
+        return view('Producto.index')->with(['productos'=> $productos]);
     }
 
     /**
@@ -46,7 +60,11 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        if($producto->id_empresa != Auth::guard('empresa')->user()->id){
+            return back()->withErrors(['validate' => 'No tiene permiso para ver ese producto']);
+        }
+        // dd($producto->adicionales);
+        return view('Producto.show')->with('producto', $producto);
     }
 
     /**
@@ -82,4 +100,22 @@ class ProductoController extends Controller
     {
         //
     }
+
+    public function eliminarAdicional(Request $request){
+        $producto = $request->input('producto');
+        $adicional = $request->input('adicional');
+        $adicionalProducto = AdicionalProducto::where('id_producto', '=', $producto)
+                                                ->where('id_adicional', '=', $adicional)->first();
+        $adicionalProducto->delete();
+        return response()->json('ok');
+    }
+
+    public function agregarAdicionales(Request $request){
+        $producto = Producto::find($request->input('producto'));
+        $adicionales = $request->input('adicional');
+        $producto->adicionales()->attach($adicionales);
+        return back();
+    }
+    
+
 }
