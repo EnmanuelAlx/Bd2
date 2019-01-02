@@ -13,6 +13,31 @@
                     <span>Añadir al carrito</span>
                 @endauth
             </div>
+            <div class="card-footer text-center">
+                @if (sizeof($producto->adicionales)>0)
+                    <span>Adicionales</span>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($producto->adicionales as $adicional)
+                            <tr>
+                                <td>{{ $adicional->descripcion }}</td>
+                                <td>{{ $adicional->precio }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    No posee adicionales
+                @endif
+                
+                
+            </div>
         </div>
     </div>
 @empty

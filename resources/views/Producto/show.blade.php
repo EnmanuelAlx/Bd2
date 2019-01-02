@@ -1,9 +1,21 @@
 @extends('layouts.menu') 
 @section('content')
-
+<a href="{{ route('productos.index') }}" class="btn btn-success">Pa tras prro</a>
 <div class="card" data-producto="{{ $producto->id }}">
     <div class="card-header text-center">
-        {{ $producto->descripcion }}
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-warning">Editar</button>
+            </div>
+            <div class="col">{{ $producto->descripcion }}</div>
+            <div class="col">
+                <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" id="borrarProducto">
+                @csrf
+                @method('DELETE')
+                </form>
+                <button class="btn btn-danger" id="borrar">Borrar</button>
+            </div>
+        </div>
     </div>
     <div class="card-body text-center">
         <div class="">
@@ -12,37 +24,43 @@
             width="200" 
             class="">
         </div>
-
+        <h2>Precio: {{ $producto->precio }}$</h2>
+    </div>
+    <div class="card-footer">
         <div class="row">
-            <h4 class="col">Adicionales <button class="btn btn-primary addAdicionales" data-toggle="modal" data-target="#modal">+</button></h4>
+            <h4 class="col">Adicionales </h4>
+            <div class="col text-right">
+                <button class="btn btn-primary addAdicionales" data-toggle="modal" data-target="#modal">Agregar Adicional</button>
+            </div>
         </div>
 
-        <table class="table table-active">
+        <table class="table table-active" >
             <thead>
                 <tr>
                     <th>Descripcion</th>
                     <th>Precio</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($producto->adicionales as $adicional)
-                    <tr data-adicional="{{ $adicional->id }}">
-                        <td>
-                            {{ $adicional->descripcion }}
-                        </td>
-                        <td>
-                            {{ $adicional->precio }}
-                        </td>
-                        <td>
-                            <button class="btn btn-danger">Borrar</button>
-                        </td>
-                    </tr>
+                <tr data-adicional="{{ $adicional->id }}">
+                    <td width="40%">
+                        {{ $adicional->descripcion }}
+                    </td>
+                    <td width="40%">
+                        {{ $adicional->precio }}
+                    </td>
+                    <td>
+                        <span>
+                            <button class="btn btn-danger borrarAdicional">Borrar</button>
+                            <button class="btn btn-warning editarAdicional">Editar</button>
+                        </span>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="card-footer">
-
     </div>
 </div>
 
@@ -128,6 +146,8 @@
 
 @endsection
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <script>
         function isInteger(){
             if(($('#precio').val())<0){
@@ -156,7 +176,7 @@
         }
 
         $(document).ready(function(){
-            $('.btn-danger').click(function(){
+            $('.borrarAdicional').click(function(){
                 deleteAdicional($('.card').data().producto, $(this).parents('tr').data().adicional, $(this).parents('tr'));
             });
 
@@ -168,7 +188,44 @@
             $('.agregarNuevoAdicional').click(function(){
                 $('#agregarNuevoAdicional').submit();
             });
-                 
+                
+            $('#borrar').click(function(){
+                const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                })
+
+                swalWithBootstrapButtons({
+                title: 'Estas seguro que deseas eliminarlo?',
+                text: "No podras revertirlo luego!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No',
+                reverseButtons: true
+                    }).then((result) => {
+                    if (result.value) {
+                        swalWithBootstrapButtons(
+                        'Borrado!',
+                        'El producto ha sido borrado.',
+                        'success'
+                        )
+                        setTimeout(() => {
+                            $('#borrarProducto').submit();
+                        }, 1000);
+                    } else if (
+                        // Read more about handling dismissals
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                        )
+                    }
+                })
+            });
         });
     </script>
 @endsection

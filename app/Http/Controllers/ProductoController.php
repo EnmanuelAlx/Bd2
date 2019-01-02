@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Producto;
+use App\Adicional;
+use App\AdicionalProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\AdicionalProducto;
-use App\Adicional;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -49,7 +50,28 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'integer|required',
+            'imagen' => 'image|required'
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $producto = Producto::create([
+            'precio' => $request->input('precio'),
+            'descripcion' => $request->input('descripcion'),
+            'id_empresa' => Auth::guard('empresa')->user()->id,
+        ]);
+
+        if($request->file('imagen')){
+            $producto->imagen = $request->file('imagen')->store('public/img_producto');
+        }
+        $producto->id_empresa = Auth::guard('empresa')->user()->id;
+        $producto->save();
+        
+        return back();
     }
 
     /**
@@ -98,7 +120,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return redirect('/productos');
     }
 
     public function eliminarAdicional(Request $request){

@@ -70,7 +70,7 @@ class EmpresaController extends Controller
 
     public function index($empresa_id)
     {
-        $productos = Producto::where('id_empresa', '=', $empresa_id)->paginate(5);
+        $productos = Producto::where('id_empresa', '=', $empresa_id)->paginate(8);
         $empresa = Empresa::find($empresa_id);
         return view('Empresa.index', ['productos' => $productos, 'empresa'=>$empresa]);
     }
