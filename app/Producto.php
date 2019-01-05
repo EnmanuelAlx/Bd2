@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
@@ -21,6 +22,10 @@ class Producto extends Model
 
     public function ordenes(){
         return $this->belongsToMany(Orden::class, 'orden_producto', 'id_producto', 'id_orden');
+    }
+
+    public function getImagenAttribute($imagen){
+        return Storage::url($imagen);
     }
 
 }

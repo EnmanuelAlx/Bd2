@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Empresa;
 use App\Producto;
+use App\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Validator;
 
 class EmpresaController extends Controller
 {
@@ -114,7 +115,11 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
-        //
+        if(Auth::guard('empresa')->user()->id != $empresa->id){
+            return back();
+        }
+        $categorias = Categoria::all();
+        return view('Empresa.edit', compact('empresa', 'categorias'));
     }
 
     /**
@@ -126,7 +131,28 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, Empresa $empresa)
     {
-        //
+    
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'telefono' => 'string|required',
+            'password' => 'nullable|min:6|confirmed',
+            'email' => 'nullable|email|unique:empresas,email,'.$empresa->id,
+            'imagen' => 'image'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        if ($request->hasFile('imagen')) {
+            $empresa->imagen = $request->file('imagen')->store('public/img_producto');
+        }
+        if($request->input('password')!=''){
+            $empresa->password = bcrypt($request->input('password'));
+        }
+
+        $empresa->update($request->only('nombre', 'telefono', 'email', 'id_categoria'));
+        return back()->with('info', 'Producto Actualizado');
     }
 
     /**

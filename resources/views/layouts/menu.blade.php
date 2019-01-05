@@ -36,7 +36,7 @@
                                             </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a href="{{ route('administrarEmpresa') }}" class="btn btn-xs">Administrar {{ Auth::guard('empresa')->user()->name }}</a>
-                            <a href="#" class="btn btn-xs">Actualizar informacion</a>
+                            <a href="{{ route('editEmpresa', Auth::guard('empresa')->user()->id)}}" class="btn btn-xs">Actualizar informacion</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <button class="btn btn-xs btn-block">Cerrar Sesion</button>

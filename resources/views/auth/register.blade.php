@@ -101,6 +101,9 @@
         </div>
     </div>
 </div>
+
+
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
 
@@ -113,11 +116,24 @@
         `
     }
 
+    
     function htmlEmpresa(){
         return `
-            <label for="imagen" class="col-md-4 col-form-label text-md-right">Imagen</label>
-            <div class="col-md-6">
-                <input type="file" id="imagen" name="imagen" class="form-control">
+            <div>
+                <label for="imagen" class="col-md-4 col-form-label text-md-right">Imagen</label>
+                <div class="col-md-6">
+                    <input type="file" id="imagen" name="imagen" class="form-control">
+                </div>
+            </div>
+            <div>
+                Categoria
+                @foreach (App\Categoria::all() as $categoria)
+                <div class="form-check">
+                    <input type="radio" id="id_categoria{{ $categoria->id }}" name="id_categoria" class="form-check-input" value="{{ $categoria->id }}"
+                        checked>
+                    <label for="id_categoria{{ $categoria->id }}" class="form-check-label">{{ $categoria->descripcion }}</label>
+                </div>
+                @endforeach
             </div>
         `
     }

@@ -12,7 +12,6 @@
 @endsection
 
 @section('content')
-
 <div class="card" id="panelEmpresas">
     <div class="card-body">
         <div class="row justify-content-md-center">

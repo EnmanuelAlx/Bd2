@@ -5,7 +5,7 @@
     <div class="card-header text-center">
         <div class="row">
             <div class="col">
-                <button class="btn btn-warning">Editar</button>
+                <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-warning">Editar</a>
             </div>
             <div class="col">{{ $producto->descripcion }}</div>
             <div class="col">
@@ -19,7 +19,7 @@
     </div>
     <div class="card-body text-center">
         <div class="">
-            <img src="{{ Storage::url($producto->imagen) }}" alt="{{ $producto->descripcion }}" 
+            <img src="{{ ($producto->imagen) }}" alt="{{ $producto->descripcion }}" 
             height="200" 
             width="200" 
             class="">

@@ -23,6 +23,9 @@ Route::group(['prefix' => 'empresa'], function () {
     Route::get('/{empresa_id}', 'EmpresaController@index')->name('productosEmpresa');
     Route::post('/register', 'EmpresaController@register')->name('registerEmpresa');
 });
+Route::get('empresa/editar/{empresa}', 'EmpresaController@edit')->name('editEmpresa');
+Route::put('empresa/edit/{empresa}', 'EmpresaController@update')->name('updateEmpresa');
+
 Route::resource('productos', 'ProductoController')->middleware('auth:empresa');
 Route::post('/adicional/addnew', 'AdicionalController@store')->name('agregarAdicional');
 Route::get('/eliminarAdicional', 'ProductoController@eliminarAdicional')->name('deleteAdicional');

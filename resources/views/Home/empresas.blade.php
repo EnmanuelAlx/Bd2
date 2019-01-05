@@ -6,7 +6,7 @@
                 {{ $empresa->name }}
             </div>
             <a class="text-center" href="{{ route('productosEmpresa', $empresa->id) }}">
-                <img class="card-img-top" src="{{ Storage::url($empresa->imagen) }}" alt="{{ $empresa->name }}" height="150" width="150" style="border-radius: 10%">
+                <img class="card-img-top" src="{{($empresa->imagen) }}" alt="{{ $empresa->name }}" height="150" width="150" style="border-radius: 10%">
             </a>
             <div class="card-body">
                 <span>{{ $empresa->telefono }}</span>

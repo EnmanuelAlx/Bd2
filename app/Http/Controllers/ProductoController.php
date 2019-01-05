@@ -97,7 +97,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('Producto.edit', compact('producto'));
     }
 
     /**
@@ -109,7 +109,27 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'integer|required',
+            'imagen' => 'image|required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+        
+        if(Auth::guard('empresa')->user()->id != $producto->id_empresa){
+            return back()->withErrors(['validate' => 'No tiene permiso para editar ese producto']);
+        }
+
+        if($request->hasFile('imagen')){
+            $producto->imagen = $request->file('imagen')->store('public/img_producto');
+        }
+
+        $producto->update($request->only('descripcion', 'precio'));
+        return back()->with('info', 'Producto Actualizado');
     }
 
     /**
