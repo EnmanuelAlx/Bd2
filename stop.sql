@@ -26,17 +26,20 @@ CREATE PROCEDURE addProductoToOrder(IN orden int, IN producto int,IN adicional i
 			SELECT cantidad INTO x
 	        FROM ordenes_productos 
 	        WHERE   id_orden = orden AND
-	                id_producto = producto;
+	                id_producto = producto AND
+	                id_adicional IS NULL;
 
 	        SELECT COUNT(*) INTO ok
 	        FROM ordenes_productos 
 	        WHERE   id_orden = orden AND
-	                id_producto = producto
+	                id_producto = producto AND
+	                id_adicional IS NULL;
 
 	 		set x= x+1;
 	        UPDATE ordenes_productos
 	        SET cantidad = x
 	        WHERE id_orden = orden AND
-	        id_producto = producto;
+	        id_producto = producto AND
+	        id_adicional IS NULL;
         END IF;
     END$$

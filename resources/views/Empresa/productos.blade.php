@@ -65,7 +65,6 @@
                 error: function (data) {
                     if(data.statusText == 'OK'){
                         $.bootstrapGrowl("El producto se ha agregado al carrito", { type: 'success' });
-                        console.log('je2222u');
                     }
                     else{
                         $.bootstrapGrowl("Ha ocurrido un error", {type: 'danger'});
