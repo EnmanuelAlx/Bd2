@@ -47,12 +47,13 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                                                                                                              Opciones
-                                                                                                            </a>
+                            Opciones
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('editUser', Auth::user()->id)}}" class="btn btn-xs">Actualizar informacion</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button class="btn btn-danger btn-xs">Cerrar Sesion</button>
+                                <button class="btn btn-xs btn-block">Cerrar Sesion</button>
                             </form>
                         </div>
                     </li>

@@ -151,8 +151,8 @@ class EmpresaController extends Controller
             $empresa->password = bcrypt($request->input('password'));
         }
 
-        $empresa->update($request->only('nombre', 'telefono', 'email', 'id_categoria'));
-        return back()->with('info', 'Producto Actualizado');
+        $empresa->update($request->only('name', 'telefono', 'email', 'id_categoria'));
+        return back()->with('info', 'Empresa Actualizada');
     }
 
     /**

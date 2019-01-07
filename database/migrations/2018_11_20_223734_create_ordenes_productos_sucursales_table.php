@@ -17,8 +17,12 @@ class CreateOrdenesProductosSucursalesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_orden');
             $table->unsignedInteger('id_producto');
+            $table->integer('cantidad')->unsigned()->default(1);
+            $table->integer('id_adicional')->unsigned()->nullable();
             $table->foreign('id_producto')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('id_orden')->references('id')->on('ordenes')->onDelete('cascade');
+            $table->foreign('id_adicional')->references('id')->on('adicionales')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });

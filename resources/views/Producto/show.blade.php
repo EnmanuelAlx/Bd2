@@ -54,7 +54,7 @@
                     <td>
                         <span>
                             <button class="btn btn-danger borrarAdicional">Borrar</button>
-                            <button class="btn btn-warning editarAdicional">Editar</button>
+                            {{-- <button class="btn btn-warning editarAdicional">Editar</button> --}}
                         </span>
                     </td>
                 </tr>

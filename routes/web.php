@@ -12,10 +12,7 @@
 */
 
 Route::get('/', "HomeController@index")->name('/');
-
 Route::get('/withCategory/{categoria_id}', "HomeController@withCategory");
-
-
 Route::group(['prefix' => 'empresa'], function () {
     Route::get('/login', "EmpresaController@showLoginForm");
     Route::post('/login', "EmpresaController@login")->name('loginEmpresa');
@@ -25,12 +22,18 @@ Route::group(['prefix' => 'empresa'], function () {
 });
 Route::get('empresa/editar/{empresa}', 'EmpresaController@edit')->name('editEmpresa');
 Route::put('empresa/edit/{empresa}', 'EmpresaController@update')->name('updateEmpresa');
-
 Route::resource('productos', 'ProductoController')->middleware('auth:empresa');
 Route::post('/adicional/addnew', 'AdicionalController@store')->name('agregarAdicional');
 Route::get('/eliminarAdicional', 'ProductoController@eliminarAdicional')->name('deleteAdicional');
 Route::post('/addAdicionales', 'ProductoController@agregarAdicionales')->name('addAdicional');
 Auth::routes();
+
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('users/editar/{usuario}','UsuarioController@edit')->name('editUser');
+    Route::put('users/editar/{usuario}', 'UsuarioController@update')->name('updateUser');
+    Route::post('agregarCarrito', 'UsuarioController@agregarAOrden')->name('agregarProductoCarrito');
+});
 
 
 

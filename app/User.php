@@ -31,13 +31,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
-
-    public function carrito(){
-        return $this->hasMany(Carrito::class, 'id_usuario', 'id');
-    }
-
     public function ordenes(){
-        return $this->belongsTo(Orden::class, 'id_orden', 'id');
+        return $this->hasMany(Orden::class, 'id_usuario', 'id');
     }
 }
