@@ -5,7 +5,7 @@ function getInfo(id){
         url: `/withCategory/` + id,
         dataType: 'JSON',
         success: function (data) {
-            console.log('hey');
+            // console.log(data);
             $('#panelEmpresas').html(data);
         },
         error: function (data) {

@@ -33,6 +33,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('users/editar/{usuario}','UsuarioController@edit')->name('editUser');
     Route::put('users/editar/{usuario}', 'UsuarioController@update')->name('updateUser');
     Route::post('agregarCarrito', 'UsuarioController@agregarAOrden')->name('agregarProductoCarrito');
+    Route::get('carrito', 'UsuarioController@getCarrito')->name('carrito');
+    Route::get('sacarCarrito', 'UsuarioController@sacarCarrito')->name('deleteCarrito');
+    Route::get('ordenFinalizada', 'UsuarioController@finalizarOrden')->name('finalizarOrden');
+    Route::get('ordenes', 'UsuarioController@verOrdenes')->name('visualizarOrdenes');
+    Route::get('getProductos', 'UsuarioController@getProductos')->name('getProductos');
+    Route::get('marcarRecibido/{orden_id}', 'UsuarioController@marcarRecibido')->name('marcarRecibido');
 });
 
 

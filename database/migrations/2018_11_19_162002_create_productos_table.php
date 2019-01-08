@@ -15,7 +15,7 @@ class CreateProductosTable extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('precio');
+            $table->float('precio');
             $table->string('descripcion');
             $table->unsignedInteger('id_empresa');
             $table->string('imagen', 100)->nullable()->default('img_producto/default.jpg');

@@ -1,5 +1,5 @@
 
-@foreach ($empresas as $empresa)
+@forelse ($empresas as $empresa)
     <div class="col col-3">
         <div class="card text-center" style="width:15rem;">
             <div class="card-header">
@@ -14,5 +14,6 @@
             </div>
         </div>
     </div>
-@endforeach
-
+@empty
+<h1>No hay empresas! se la primera en registrarte</h1>    
+@endforelse

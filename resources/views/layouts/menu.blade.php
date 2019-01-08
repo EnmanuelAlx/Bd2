@@ -51,6 +51,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a href="{{ route('editUser', Auth::user()->id)}}" class="btn btn-xs">Actualizar informacion</a>
+                            <a href="{{ route('visualizarOrdenes') }}" class="btn btn-xs">Visualizar Ordenes</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <button class="btn btn-xs btn-block">Cerrar Sesion</button>
@@ -58,7 +59,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Carrito</a>
+                        <a class="nav-link" href="{{ route('carrito') }}">Carrito</a>
                     </li>
                 @endif
         

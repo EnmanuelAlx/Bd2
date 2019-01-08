@@ -11,6 +11,8 @@ class Producto extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = ['descripcion', 'precio', 'id_empresa', 'imagen'];
+    protected $aditions = [];
+
     public function empresa()
     {
         return $this->hasOne(Empresa::class, 'id');

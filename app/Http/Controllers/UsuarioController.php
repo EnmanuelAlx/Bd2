@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\OrdenProducto;
+// use Yajra\DataTables\Utilities\Request;
 
 class UsuarioController extends Controller
 {
@@ -135,7 +136,8 @@ class UsuarioController extends Controller
                 $ok = (DB::select('SELECT @ok as ok'))[0]->ok;
                 if ($ok) {
                     continue;
-                } else {
+                } 
+                else {
                     OrdenProducto::create([
                         'id_orden' => $orden->id,
                         'id_producto' => $producto,
@@ -152,7 +154,8 @@ class UsuarioController extends Controller
             if($ok){
                 return response()->json(['ok' => 1]);
                 
-            }else{
+            }
+            else{
                 $orden->productos()->attach($producto);
                 return response()->json(['ok'=> 1]);
             }
@@ -174,10 +177,76 @@ class UsuarioController extends Controller
                 ]);
             }
             return response()->json(['ok' => 1]);            
-        }else{
+        }
+        else{
             $orden->productos()->attach($producto);
             return response()->json(['ok' => 1]);
         }
+    }
+
+
+    public function getCarrito(){
+        
+        $ordenes = Auth::user()->ordenes->filter(function($item){
+            return $item->status ==0;
+        })->first();
+        $productos = collect();
+        $total = 0;
+        if($ordenes){
+            $productos = $ordenes->getProductos();
+            $total = $ordenes->costoTotal();
+        }
+        
+        // dd($ordenes->getProductos());
+        // dd($ordenes->costoTotal());
+
+        return view('Usuario.carrito',['productos'=> $productos, 'total' =>$total]);
+    }
+
+    public function sacarCarrito(Request $request)
+    {
+        OrdenProducto::destroy($request->input('id'));
+        return response()->json('ok', 200);
+    }
+
+    public function finalizarOrden(Request $request)
+    {
+        $orden = Orden::find($request->input('id'));
+        $orden->status = 1;
+        $orden->save();
+        return response()->json(1, 200);
+    }
+
+    public function verOrdenes()
+    {
+        // dd('verOrdenes');
+        // dd(Auth::user()->ordenes[0]->productos->count());
+        return view('Usuario.ordenes')->with(['ordenes'=> Auth::user()->ordenes]);
+    }
+
+    public function getProductos(Request $request)
+    {
+        $ordenes = Orden::find($request->input('id'));
+        $productos = collect();
+        $total = 0;
+        if ($ordenes) {
+            $productos = $ordenes->getProductos();
+            $total = $ordenes->costoTotal();
+        }
+
+        $view = view('Usuario.tableProductos', ['productos' => $productos, 'total' => $total]);
+        
+        return response()->json($view->render());
+
+    }
+
+    public function marcarRecibido($orden)
+    {
+        $o = Orden::find($orden);
+        $o->fecha_entrega = date("Y-m-d H:i:s");
+        $o->status = 2;
+        $o->save();
+        return back();
     }
 
 }

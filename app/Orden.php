@@ -19,8 +19,34 @@ class Orden extends Model
         return $this->belongsToMany(Producto::class, 'ordenes_productos', 'id_orden', 'id_producto');
     }
 
+
+    public function getProductos(){
+        $orden_producto = OrdenProducto::where('id_orden', '=', $this->id)->get()->groupBy('id_producto');
+        
+        return $orden_producto;
+    }
+
+    public function costoTotal(){
+        $productos = OrdenProducto::where('id_orden', '=', $this->id)->get();
+        $total = 0;
+        foreach ($productos as $producto) {
+            $t = 0;
+            if($producto->id_adicional != null){
+                $t += Adicional::find($producto->id_adicional)->precio;
+            }
+            $t += Producto::find($producto->id_producto)->precio;
+            $total += $t * $producto->cantidad;
+        }
+        return $total;
+    }
+
     public function adicionales(){
         return $this->belongsToMany(AdicionalProducto::class, 'adicionales_ordenes', 'id_orden', 'id_adicional');
+    }
+
+    public function cantidadProductos(){
+        
+        return 0;
     }
     
     use SoftDeletes;
