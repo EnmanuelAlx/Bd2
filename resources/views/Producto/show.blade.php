@@ -84,6 +84,8 @@
                             <tr>
                                 <th>Descripcion</th>
                                 <th>Precio</th>
+                                <th>Action</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="adicionales">
@@ -94,6 +96,9 @@
                                     </td>
                                     <td>
                                         <span>{{ $item->precio }}</span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('editarAdicional', $item->id) }}" class="btn btn-warning">Editar</a>
                                     </td>
                                     <td>
                                         <input type="checkbox" name="adicional[]" value="{{ $item->id }}">

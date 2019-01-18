@@ -13,7 +13,7 @@ class Adicional extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'descripcion', 'precio', 'id_categoria'
+        'descripcion', 'precio', 'id_empresa'
     ];
 
     public function productos(){
@@ -25,7 +25,7 @@ class Adicional extends Model
         $id_adicionales = $producto->adicionales->map(function ($item) {
             return $item->id;
         });
-        return Adicional::whereNotIn('id', $id_adicionales)->where('id_categoria', '=', Auth::guard('empresa')->user()->id_categoria)->get();
+        return Adicional::whereNotIn('id', $id_adicionales)->where('id_empresa', '=', Auth::guard('empresa')->user()->id)->get();
     }
 
 

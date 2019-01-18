@@ -48,7 +48,7 @@ class AdicionalController extends Controller
         Adicional::create([
             'descripcion' => $request->input('descripcion'),
             'precio' => $request->input('precio'),
-            'id_categoria' => Auth::guard('empresa')->user()->id_categoria
+            'id_empresa' => Auth::guard('empresa')->user()->id
         ]);
         return back();
     }
@@ -72,7 +72,10 @@ class AdicionalController extends Controller
      */
     public function edit(Adicional $adicional)
     {
-        //
+        if (Auth::guard('empresa')->user()->id != $adicional->id_empresa) {
+            return back()->withErrors(['validate' => 'No tiene permiso para editar ese adicional']);
+        }
+        return view('Adicional.edit', compact('adicional'));
     }
 
     /**
@@ -84,7 +87,8 @@ class AdicionalController extends Controller
      */
     public function update(Request $request, Adicional $adicional)
     {
-        //
+        $adicional->update($request->only('descripcion', 'precio'));
+        return back()->with('info', 'Adicional Actualizado');
     }
 
     /**
@@ -95,6 +99,7 @@ class AdicionalController extends Controller
      */
     public function destroy(Adicional $adicional)
     {
-        //
+        $adicional->delete();
+        return redirect('/productos');
     }
 }

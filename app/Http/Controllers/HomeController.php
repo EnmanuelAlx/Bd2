@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Empresa;
+use App\Producto;
 use App\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,4 +28,14 @@ class HomeController extends Controller
         }
         return view('Home.index', ['empresas' => $empresas, 'categorias' => $categorias]);
     }
+
+    public function search(Request $request)
+    {
+
+        $query = $request->input('query');
+        $productos = Producto::where('descripcion', 'LIKE', "%$query%")->get();
+        // dd($productos);
+        return view('Home.search', ['productos'=>$productos]);
+    }
+
 }

@@ -18,8 +18,8 @@
                 <img src="{{ asset('imagenes/shoping.png') }}" height="80" width="200">
             </a>
         </div>
-        <form class="form-inline my-2 my-lg-4 col-5">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-4 col-5" action="{{ route('search') }}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="query" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
 

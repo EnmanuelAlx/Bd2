@@ -14,8 +14,8 @@ class AddCategoriaAdicionalTable extends Migration
     public function up()
     {
         Schema::table('adicionales', function (Blueprint $table) {
-            $table->integer('id_categoria')->unsigned()->nullable()->default(1);
-            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');
+            $table->integer('id_empresa')->unsigned()->nullable()->default(1);
+            $table->foreign('id_empresa')->references('id')->on('empresas')->onDelete('cascade');
         });
     }
 

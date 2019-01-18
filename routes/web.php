@@ -26,6 +26,10 @@ Route::resource('productos', 'ProductoController')->middleware('auth:empresa');
 Route::post('/adicional/addnew', 'AdicionalController@store')->name('agregarAdicional');
 Route::get('/eliminarAdicional', 'ProductoController@eliminarAdicional')->name('deleteAdicional');
 Route::post('/addAdicionales', 'ProductoController@agregarAdicionales')->name('addAdicional');
+Route::get('/adicional/{adicional}', 'AdicionalController@edit')->name('editarAdicional');
+Route::put('/adicional/{adicional}', 'AdicionalController@update')->name('updateAdicional');
+Route::delete('adicional/{id}', 'AdicionalController@destroy')->name('borrarAdicional');
+Route::get('/query', 'HomeController@search')->name('search');
 Auth::routes();
 
 
