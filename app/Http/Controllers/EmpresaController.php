@@ -51,7 +51,9 @@ class EmpresaController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:empresas',
             'password' => 'required|string|min:3|confirmed',
-            'imagen' => 'image'
+            'telefono' => 'required',
+            'imagen' => 'image',
+            'id_categoria' => 'required'
         ]);
     }
 
